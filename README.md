@@ -19,9 +19,9 @@ First, include toolkit file as standart javascript library:
 Second, create a new instance of SimpleWebGL:
 
 ```js
-var GL = new SimpleWebGL(width, height);
+var GL = new SimpleWebGL(width, height, options);
 ```
-Arguments *width* and *height* are sizes for creating canvas and rendering viewport.
+Arguments *width* and *height* are sizes for creating canvas and rendering viewport. *options* is an object with options for _getContext()_ second argument.
 
 API
 ---

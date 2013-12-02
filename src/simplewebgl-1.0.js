@@ -16,11 +16,11 @@
 	'use strict';
 
 	// simpleGL constructor.
-	function SimpleWebGL (width, height)
+	function SimpleWebGL (width, height, options)
 	{
 		// Prevent fails for not used 'new' operator.
 		if (!this || this instanceof Window) 
-			return new SimpleWebGL(width, height);
+			return new SimpleWebGL(width, height, options);
 
 		// Save instance parameters.
 		this.width = width;
@@ -31,7 +31,7 @@
 		this.buffers = {};
 		this.textures = {};
 		
-		this.gl = this.initGL(width, height);
+		this.gl = this.initGL(width, height, options);
 
 		// Set clean state.
 		if (this.gl)
@@ -51,9 +51,11 @@
 	};
 
 	// WebGL initialization.
-	SimpleWebGL.prototype.initGL = function (width, height)
+	SimpleWebGL.prototype.initGL = function (width, height, options)
 	{
 		var gl = null;
+
+		options = typeof options === 'object' ? options : {};
 
 		if (window['Float32Array'])
 			try 
@@ -62,7 +64,7 @@
 				this.cgl.width = width;
 				this.cgl.height = height;
 
-				var gl = this.cgl.getContext('webgl') || this.cgl.getContext('experimental-webgl') || this.cgl.getContext('webkit-3d') || this.cgl.getContext('moz-webgl') || null;
+				var gl = this.cgl.getContext('webgl', options) || this.cgl.getContext('experimental-webgl', options) || this.cgl.getContext('webkit-3d', options) || this.cgl.getContext('moz-webgl', options) || null;
 
 			} catch (e) { console.warn('SimpleWebGL cannot be initialized because current browser or operating system does not support WebGL rendering') };
 
@@ -274,6 +276,7 @@
 	{
 		this.clear();
 		if (this.onDraw) this.onDraw();
+		return this;
 	}
 
 	// Save onDraw advanced function.
