@@ -44,9 +44,11 @@
 		return this;
 	}
 
-	// Technique name for debug output.
-	SimpleWebGL.prototype.name = 'SimpleWebGL';
-	SimpleWebGL.prototype.version = '1.0';
+	// Version and name.
+	SimpleWebGL.prototype = {
+		version: '1.0',
+		name: 'SimpleWebGL',
+	};
 
 	// WebGL initialization.
 	SimpleWebGL.prototype.initGL = function (width, height)
@@ -79,8 +81,22 @@
 	// Set viewport of webgl context.
 	SimpleWebGL.prototype.setViewport = function (width, height)
 	{
+		// Change viewport.
 		if (this.gl)
-			this.gl.viewport(0, 0, width || this.cgl.width, height || this.cgl.height);
+			this.gl.viewport(0, 0, width || this.width || this.cgl.width, height || this.height || this.cgl.height);
+
+		return this;
+	}
+
+	// Set new sizes for drawning area (element sizes and viewport).
+	SimpleWebGL.prototype.resize = function (width, height)
+	{
+		if (this.cgl)
+		{
+			this.cgl.width = this.width = width;
+			this.cgl.height = this.height = height;
+			this.setViewport(width, height);
+		}
 
 		return this;
 	}

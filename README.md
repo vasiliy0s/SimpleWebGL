@@ -46,6 +46,8 @@ After instance iniated you can use provided API in jQuery-like style:
 
 * **drawStop**() - stop current drawning loop.
 
+* **resize**(_width_, _height_) - set new sizes of canvas and viewport.
+
 * **noConflict**(_name_) - detach SimpleWebGL object from global scope and a) save with *name* or b) return it.
 
 * **version** - string with current toolkit version.
